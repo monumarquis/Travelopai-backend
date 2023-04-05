@@ -66,7 +66,7 @@ app.get("/", async (req: Request, res: Response) => {
 
   const user: UserDocument[] = await userModel.find({});
   return res
-    .status(201)
+    .status(200)
     .send({ user, message: "Your Details retrieved Successfully" });
 });
 
