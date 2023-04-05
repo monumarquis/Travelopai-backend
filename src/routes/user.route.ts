@@ -67,8 +67,8 @@ app.get("/", async (req: Request, res: Response) => {
   console.log(page, limit)
   if (page) {
     const Totaluser: UserDocument[] = await userModel.find({})
-    let totalPages: number = Math.floor(Totaluser.length / 10)
-    console.log(totalPages+1)
+    let totalPages: number = Math.floor(Totaluser.length / 10) + 1
+    console.log(totalPages + 1)
     const user: UserDocument[] = await userModel.find({}).limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit));
     return res
