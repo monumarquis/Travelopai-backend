@@ -1,5 +1,5 @@
 require("dotenv").config();
-import express, { Request, Response, Application } from "express";
+import express, { Request, Response, Application, NextFunction } from "express";
 import cors from "cors";
 import userRoute from "./routes/user.route";
 import connect from "./config/db";
@@ -11,6 +11,13 @@ const PORT = process.env.PORT || 8001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Allow requests from all domains by setting the 'Access-Control-Allow-Origin' header to '*'
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 // user Routes
 app.use("/user", userRoute);
